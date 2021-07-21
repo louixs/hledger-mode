@@ -253,10 +253,20 @@ the output to `standard-error' and `standard-output'."
         ;; Error code and the error message
         (cons status (buffer-string))))))
 
+(defun insert-files-contents (files)
+  "Insert contents of list of FILES to buffer."
+  (dolist (f files)
+    (insert-file-contents f)))
+
+(defun files-to-insert ()
+  (if (consp hledger-include-files)
+    (append `(,hledger-jfile) hledger-include-files)
+    `(,hledger-jfile)))
+
 (defun hledger-shell-command-to-string (command-string)
   "Return result of running hledger command COMMAND-STRING."
   (with-temp-buffer
-    (insert-file-contents hledger-jfile)
+    (insert-files-contents (files-to-insert))
     (shell-command-on-region (point-min)
                              (point-max)
                              (concat "hledger -f - " command-string)

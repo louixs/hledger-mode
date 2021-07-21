@@ -29,6 +29,12 @@
   :group 'hledger
   :type 'file)
 
+(defcustom hledger-include-files nil
+  "List of files to include. (optional)
+   File names should be strings."
+  :group 'hledger
+  :type 'list)
+
 (defcustom hledger-reporting-buffer-name "*Personal Finance*"
   "Name of the buffer for showing or working with reports."
   :group 'hledger
